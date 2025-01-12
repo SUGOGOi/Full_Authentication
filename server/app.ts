@@ -26,14 +26,8 @@ app.use(
 );
 
 // importing or using routes
-// import auth from "./src/routes/authRoute.js";
-// import client from "./src/routes/clientRoute.js";
-// import vehicle from "./src/routes/vehicleRoute.js";
-// import task from "./src/routes/taskAndContactRoute.js";
+import user from "./src/routes/userRoute.js";
 
-// app.use("/auth", auth);
-// app.use("/client", client);
-// app.use("/vehicle", vehicle);
-// app.use("/other", task);
+app.use("/api/user", user);
 
 export default app;
