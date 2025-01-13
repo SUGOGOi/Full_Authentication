@@ -35,6 +35,7 @@ export const userRegistraion = async (
     const newUser = await User.create({
       name,
       email,
+
       password: hashedPassword,
     });
 

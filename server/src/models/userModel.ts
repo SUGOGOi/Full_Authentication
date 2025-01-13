@@ -1,21 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
-
-export interface IUser extends Document {
-  name: string;
-  email: string;
-  password: string;
-  is_verified?: string;
-  role?: UserRole;
-  googoleId?: string;
-  githubId?: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export enum UserRole {
-  ADMIN = "admin",
-  USER = "user",
-}
+import { IUser, UserRole } from "../Types/types.js";
 
 const UserSchema = new Schema<IUser>(
   {
@@ -40,6 +24,7 @@ const UserSchema = new Schema<IUser>(
     is_verified: {
       type: Boolean,
       required: false,
+      default: false,
     },
     googoleId: {
       type: String,

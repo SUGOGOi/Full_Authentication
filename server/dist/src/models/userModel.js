@@ -1,5 +1,10 @@
 import mongoose, { Schema } from "mongoose";
+import { UserRole } from "../Types/types.js";
 const UserSchema = new Schema({
+    name: {
+        type: String,
+        required: [true, "Enter your name"],
+    },
     email: {
         type: String,
         required: true,
@@ -8,6 +13,16 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: false, // for social auth users
+    },
+    role: {
+        type: String,
+        enum: Object.values(UserRole), // Allow only enum values
+        default: UserRole.USER, // Set a default role
+    },
+    is_verified: {
+        type: Boolean,
+        required: false,
+        default: false,
     },
     googoleId: {
         type: String,
@@ -18,4 +33,4 @@ const UserSchema = new Schema({
         required: false,
     },
 }, { timestamps: true });
-export default mongoose.model("User", UserSchema);
+export const User = mongoose.model("user", UserSchema);

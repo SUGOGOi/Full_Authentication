@@ -3,9 +3,11 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import morgan from "morgan";
+import passport from "passport";
 dotenv.config();
 const app = express();
 //using middlewares
+app.use(passport.initialize());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({
@@ -18,12 +20,6 @@ app.use(cors({
     methods: ["GET", "POST", "DELETE", "PUT"],
 }));
 // importing or using routes
-// import auth from "./src/routes/authRoute.js";
-// import client from "./src/routes/clientRoute.js";
-// import vehicle from "./src/routes/vehicleRoute.js";
-// import task from "./src/routes/taskAndContactRoute.js";
-// app.use("/auth", auth);
-// app.use("/client", client);
-// app.use("/vehicle", vehicle);
-// app.use("/other", task);
+import userRoutes from "./src/routes/userRoute.js";
+app.use("/api/user", userRoutes);
 export default app;
