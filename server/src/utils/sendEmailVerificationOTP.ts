@@ -1,10 +1,11 @@
 import transporter from "../config/emailConfig.js";
 import { Response } from "express";
-import { UserType } from "../Types/types.js";
+import { UserTypeInEmail } from "../Types/types.js";
+import { Otp } from "../models/otpModel.js";
 
 const sendEmailVerificationOTP = async (
   res: Response,
-  user: UserType
+  user: UserTypeInEmail
 ): Promise<any> => {
   try {
     //generate 4 digit no
@@ -12,7 +13,6 @@ const sendEmailVerificationOTP = async (
 
     //otp verification link
     // const otpVrificationLink = `${process.env.FRONTEND_URL}/account/verify-email`;
-
     await transporter.sendMail({
       from: process.env.EMAIL_FROM,
       to: user.email,
@@ -105,6 +105,20 @@ const sendEmailVerificationOTP = async (
 </html>
 `,
     });
+
+    const findOTP = await Otp.findOne({ userId: user._id });
+
+    if (!findOTP) {
+      //save new otp
+      await Otp.create({
+        userId: user._id,
+        otp,
+      });
+    } else {
+      findOTP.otp = otp.toString();
+      findOTP.createdAt = new Date();
+      await findOTP.save();
+    }
 
     return otp;
   } catch (error) {

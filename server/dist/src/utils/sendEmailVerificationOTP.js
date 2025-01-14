@@ -1,4 +1,5 @@
 import transporter from "../config/emailConfig.js";
+import { Otp } from "../models/otpModel.js";
 const sendEmailVerificationOTP = async (res, user) => {
     try {
         //generate 4 digit no
@@ -97,6 +98,19 @@ const sendEmailVerificationOTP = async (res, user) => {
 </html>
 `,
         });
+        const findOTP = await Otp.findOne({ userId: user._id });
+        if (!findOTP) {
+            //save new otp
+            await Otp.create({
+                userId: user._id,
+                otp,
+            });
+        }
+        else {
+            findOTP.otp = otp.toString();
+            findOTP.createdAt = new Date();
+            await findOTP.save();
+        }
         return otp;
     }
     catch (error) {
