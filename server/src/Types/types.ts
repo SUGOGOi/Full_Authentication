@@ -14,6 +14,12 @@ export interface UserTypeInEmail {
   name: string;
 }
 
+export interface UserTypeInTokens {
+  email: string;
+  _id: string | any;
+  role: string;
+}
+
 // FOR USER MODEL
 export interface IUser extends Document {
   name: string;
