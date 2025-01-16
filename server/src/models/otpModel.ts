@@ -11,7 +11,7 @@ const otpSchema = new mongoose.Schema<IOtp>({
     type: String,
     required: true,
   },
-  createdAt: { type: Date, default: Date.now, index: { expires: "10m" } }, // TTL index
+  createdAt: { type: Date, default: Date.now, expires: "10m" }, // TTL index
 });
 
 export const Otp = mongoose.model<IOtp>("otp", otpSchema);

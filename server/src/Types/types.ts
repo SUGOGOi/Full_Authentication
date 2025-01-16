@@ -15,7 +15,6 @@ export interface UserTypeInEmail {
 }
 
 export interface UserTypeInTokens {
-  email: string;
   _id: string | any;
   role: string;
 }
@@ -43,4 +42,26 @@ export interface IOtp extends Document {
   userId: mongoose.Schema.Types.ObjectId;
   otp: string;
   createdAt: Date;
+}
+
+// user refresh token model
+export interface IUserRefreshToken extends Document {
+  userId: mongoose.Schema.Types.ObjectId;
+  token: string;
+  blacklisted: boolean;
+  createdAt: Date;
+}
+
+//generate token return
+export interface Tokens {
+  accessToken: string;
+  refreshToken: string;
+}
+
+//set cookie options
+export interface SetCookieOption {
+  expires: Date;
+  httpOnly: boolean;
+  secure: boolean;
+  sameSite: boolean | "strict" | "lax" | "none" | undefined;
 }

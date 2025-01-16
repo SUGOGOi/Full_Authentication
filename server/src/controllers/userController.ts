@@ -3,6 +3,8 @@ import { User } from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import sendEmailVerificationOTP from "../utils/sendEmailVerificationOTP.js";
 import { Otp } from "../models/otpModel.js";
+import { setTokenCookies } from "../utils/setTokenCookies.js";
+import { generateTokens } from "../utils/generateToken.js";
 
 // register
 export const userRegistraion = async (
@@ -182,8 +184,22 @@ export const userLogin = async (
     }
 
     //generate token
-    //set cookie
+
+    const { accessToken, refreshToken } = await generateTokens({
+      _id: userFound._id,
+      role: userFound.role!,
+    });
+    // //set cookie
+    setTokenCookies(res, accessToken, refreshToken);
+
     //send success res
+    return res.status(200).json({
+      success: true,
+      message: `Welcome ${userFound.name}`,
+      is_auth: true,
+      accessToken,
+      refreshToken,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ success: false, error: "Server Error!" });

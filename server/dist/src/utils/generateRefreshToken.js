@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { UserRefreshToken } from "../models/userRefreshTokenModel.js";
-export const generateTokens = async (user) => {
+export const generateTokens = async (user, req) => {
     try {
         // console.log("Generating tokens...");
         const payload = { _id: user._id, role: user.role };
