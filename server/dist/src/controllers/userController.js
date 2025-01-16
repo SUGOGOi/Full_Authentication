@@ -4,6 +4,7 @@ import sendEmailVerificationOTP from "../utils/sendEmailVerificationOTP.js";
 import { Otp } from "../models/otpModel.js";
 import { setTokenCookies } from "../utils/setTokenCookies.js";
 import { generateTokens } from "../utils/generateToken.js";
+import { refreshAccessToken } from "../utils/refreshAccessToken.js";
 // register
 export const userRegistraion = async (req, res, next) => {
     try {
@@ -129,7 +130,9 @@ export const userLogin = async (req, res, next) => {
         }
         const userFound = await User.findOne({ email: email });
         if (!userFound) {
-            return res.status(404).json({ success: false, error: "User not found" });
+            return res
+                .status(404)
+                .json({ success: false, error: "Invalid email or password" });
         }
         if (!userFound.is_verified) {
             return res
@@ -164,8 +167,38 @@ export const userLogin = async (req, res, next) => {
     }
 };
 // get new access token and refresh token
-// change password
+export const getNewAccessToken = async (req, res, next) => {
+    try {
+        //get new access token using refresh token
+        const { newAccessToken, newRefreshToken } = await refreshAccessToken(req, res);
+        // set new access + refresh token to cookie
+        setTokenCookies(res, newAccessToken, newRefreshToken);
+        return res.status(200).json({
+            success: true,
+            message: `New Tokens are generated`,
+            is_auth: true,
+            newAccessToken,
+            newRefreshToken,
+        });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({ success: false, error: "Server Error!" });
+    }
+};
 // profile or logged in user
+export const getUserProfile = async (req, res) => {
+    try {
+        return res.json({ user: req.user });
+    }
+    catch (error) {
+        console.log(error);
+        return res
+            .status(500)
+            .json({ success: false, error: "Failed to load profile data" });
+    }
+};
+// change password
 //send password reset link
 //password reset
 // logout

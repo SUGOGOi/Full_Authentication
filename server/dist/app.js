@@ -3,12 +3,13 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import morgan from "morgan";
-import passport from "passport";
+// import passport from "passport";
+import "./src/config/passportConfig.js";
 import transporter from "./src/config/emailConfig.js";
 dotenv.config();
 const app = express();
 //using middlewares
-app.use(passport.initialize());
+// app.use(passport.initialize());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({
