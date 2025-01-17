@@ -10,7 +10,12 @@ export const verifyRefreshToken = async (
     });
 
     if (!findRefreshToken) {
-      throw { error: true, message: "Invalid Refresh Token" };
+      return {
+        error: {
+          statusCode: 401,
+          errorMessage: "Unauthorized",
+        },
+      };
     }
 
     const tokenDetail = jwt.verify(
@@ -20,7 +25,6 @@ export const verifyRefreshToken = async (
 
     return {
       tokenDetail,
-      error: false,
     };
   } catch (error) {
     console.error("Error generating  access token:", error);

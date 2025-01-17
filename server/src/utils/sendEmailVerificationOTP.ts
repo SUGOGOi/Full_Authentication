@@ -123,7 +123,12 @@ const sendEmailVerificationOTP = async (
     return otp;
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, error: "Server Error!" });
+    return {
+      error: {
+        statusCode: 500,
+        errorMessage: "Error sending emails, Try again later",
+      },
+    };
   }
 };
 

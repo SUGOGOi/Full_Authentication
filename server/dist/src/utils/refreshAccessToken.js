@@ -6,23 +6,43 @@ export const refreshAccessToken = async (req, res) => {
     try {
         const oldRefreshToken = req.cookies.refreshToken;
         //verify refresh token is valid or not + expiry
+        if (!oldRefreshToken) {
+            return {
+                error: {
+                    statusCode: 401,
+                    errorMessage: "Unauthorized",
+                },
+            };
+        }
         const { tokenDetail, error } = await verifyRefreshToken(oldRefreshToken);
         if (error) {
-            throw { error: true, message: "Invalid Refresh Token" };
+            return {
+                error: {
+                    statusCode: error.statusCode,
+                    errorMessage: error.errorMessage,
+                },
+            };
         }
         const userFoud = await User.findById(tokenDetail._id);
         if (!userFoud) {
-            throw { error: true, message: "User not found" };
+            return {
+                error: {
+                    statusCode: 401,
+                    errorMessage: "Unauthorized",
+                },
+            };
         }
         const userRefreshToken = await UserRefreshToken.findOne({
             userId: tokenDetail._id,
         });
         if (oldRefreshToken !== userRefreshToken.token ||
             userRefreshToken?.blacklisted) {
-            return res.status(401).json({
-                success: false,
-                message: "Unauthorized",
-            });
+            return {
+                error: {
+                    statusCode: 401,
+                    errorMessage: "Unauthorized",
+                },
+            };
         }
         const { accessToken, refreshToken } = await generateTokens({
             _id: userFoud._id,

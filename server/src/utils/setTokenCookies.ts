@@ -40,6 +40,6 @@ export const setTokenCookies = async (
     res.cookie("refreshToken", refreshToken, refreshTokenOptions);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ success: false, error: "Server Error!" });
+    throw new Error("Failed to set tokens");
   }
 };

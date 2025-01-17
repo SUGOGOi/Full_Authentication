@@ -8,6 +8,7 @@ import {
   userRegistraion,
 } from "../controllers/userController.js";
 import passport from "passport";
+import { accessTokenAutoRefresh } from "../middlewares/accessTokenAutoRefresh.js";
 
 const router = express.Router();
 
@@ -22,6 +23,7 @@ router.get("/generate-new-tokens", getNewAccessToken);
 //protected routes
 router.get(
   "/get-profile",
+  accessTokenAutoRefresh,
   passport.authenticate("jwt", { session: false }),
   getUserProfile
 );

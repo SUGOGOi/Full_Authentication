@@ -33,11 +33,17 @@ export const userRegistraion = async (req, res, next) => {
             email,
             password: hashedPassword,
         });
-        sendEmailVerificationOTP(res, {
+        const { error } = await sendEmailVerificationOTP(res, {
             _id: newUser._id,
             name: newUser.name,
             email: newUser.email,
         });
+        if (error) {
+            return res.status(error.statusCode).json({
+                success: false,
+                error: error.errorMessage,
+            });
+        }
         return res.status(201).json({
             success: true,
             message: `Registration successfull`,
@@ -65,11 +71,17 @@ export const resendRegisterVerificationOtp = async (req, res, next) => {
         if (!userFound) {
             return res.status(404).json({ success: false, error: "User not Found" });
         }
-        sendEmailVerificationOTP(res, {
+        const { error } = await sendEmailVerificationOTP(res, {
             _id: userFound._id,
             name: userFound.name,
             email: userFound.email,
         });
+        if (error) {
+            return res.status(error.statusCode).json({
+                success: false,
+                error: error.errorMessage,
+            });
+        }
         return res.status(200).json({
             success: true,
             message: `OTP sent`,
@@ -170,7 +182,13 @@ export const userLogin = async (req, res, next) => {
 export const getNewAccessToken = async (req, res, next) => {
     try {
         //get new access token using refresh token
-        const { newAccessToken, newRefreshToken } = await refreshAccessToken(req, res);
+        const { newAccessToken, newRefreshToken, error } = await refreshAccessToken(req, res);
+        if (error) {
+            return res.status(error.statusCode).json({
+                success: false,
+                error: error.errorMessage,
+            });
+        }
         // set new access + refresh token to cookie
         setTokenCookies(res, newAccessToken, newRefreshToken);
         return res.status(200).json({

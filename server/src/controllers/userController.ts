@@ -44,11 +44,18 @@ export const userRegistraion = async (
       password: hashedPassword,
     });
 
-    sendEmailVerificationOTP(res, {
+    const { error } = await sendEmailVerificationOTP(res, {
       _id: newUser._id,
       name: newUser.name,
       email: newUser.email,
     });
+
+    if (error) {
+      return res.status(error.statusCode).json({
+        success: false,
+        error: error.errorMessage,
+      });
+    }
 
     return res.status(201).json({
       success: true,
@@ -84,11 +91,18 @@ export const resendRegisterVerificationOtp = async (
       return res.status(404).json({ success: false, error: "User not Found" });
     }
 
-    sendEmailVerificationOTP(res, {
+    const { error } = await sendEmailVerificationOTP(res, {
       _id: userFound._id,
       name: userFound.name,
       email: userFound.email,
     });
+
+    if (error) {
+      return res.status(error.statusCode).json({
+        success: false,
+        error: error.errorMessage,
+      });
+    }
 
     return res.status(200).json({
       success: true,
@@ -218,10 +232,17 @@ export const getNewAccessToken = async (
 ): Promise<any> => {
   try {
     //get new access token using refresh token
-    const { newAccessToken, newRefreshToken } = await refreshAccessToken(
+    const { newAccessToken, newRefreshToken, error } = await refreshAccessToken(
       req,
       res
     );
+
+    if (error) {
+      return res.status(error.statusCode).json({
+        success: false,
+        error: error.errorMessage,
+      });
+    }
     // set new access + refresh token to cookie
     setTokenCookies(res, newAccessToken, newRefreshToken);
 

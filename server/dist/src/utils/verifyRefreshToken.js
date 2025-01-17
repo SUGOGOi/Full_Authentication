@@ -6,12 +6,16 @@ export const verifyRefreshToken = async (oldRefreshToken) => {
             token: oldRefreshToken,
         });
         if (!findRefreshToken) {
-            throw { error: true, message: "Invalid Refresh Token" };
+            return {
+                error: {
+                    statusCode: 401,
+                    errorMessage: "Unauthorized",
+                },
+            };
         }
         const tokenDetail = jwt.verify(oldRefreshToken, process.env.REFRESH_TOKEN_SECRET_KEY);
         return {
             tokenDetail,
-            error: false,
         };
     }
     catch (error) {
