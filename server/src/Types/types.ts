@@ -21,6 +21,7 @@ export interface UserTypeInTokens {
 
 // FOR USER MODEL
 export interface IUser extends Document {
+  _id: mongoose.Schema.Types.ObjectId;
   name: string;
   email: string;
   password: string;
