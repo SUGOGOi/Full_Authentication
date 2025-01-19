@@ -4,3 +4,29 @@
 /.vscode
 /client/.env
 /server/.env
+
+
+
+
+#client
+# testing
+/coverage
+
+# next.js
+/client/.next/
+/client/out/
+
+# production
+/client/build
+
+
+
+# env files (can opt-in for committing if needed)
+/client/.env*
+
+# vercel
+/client/.vercel
+
+# typescript
+/client/*.tsbuildinfo
+/client/.next-env.d.ts
