@@ -1,0 +1,44 @@
+// Navbar.scss
+$primary-color: #4caf50;
+$secondary-color: #ffffff;
+$font-color: #333;
+$footer-bg: #f4f4f4;
+$button-hover-color: #45a049;
+
+.navbar {
+  background-color: $primary-color;
+  padding: 1rem;
+
+  .navbar__list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+    .nav_left,
+    .nav_right {
+      width: 30%;
+      .navbar__item {
+        margin: 0;
+      }
+
+      .navbar__link {
+        color: $secondary-color;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s;
+
+        &:hover {
+          color: $button-hover-color;
+        }
+      }
+    }
+
+    .nav_right {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+$footer-bg: #f4f4f4;
+
+.app-footer {
+  text-align: center;
+  font-size: 0.9rem;
+  background-color: $footer-bg;
+  padding: 10px;
+  width: 100%;
+  // position: fixed;
+  bottom: 0;
+}
