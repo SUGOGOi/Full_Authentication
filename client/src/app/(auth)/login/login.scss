@@ -1,0 +1,121 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+
+  .loginContainer {
+    width: 100%;
+    max-width: 400px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      .login-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        label {
+          font-size: 0.9rem;
+          font-weight: 500;
+        }
+
+        input {
+          padding: 0.75rem;
+          font-size: 1rem;
+          border: 1px solid #cccccc;
+          border-radius: 5px;
+          transition: border-color 0.3s ease;
+
+          &:focus {
+            border-color: #4caf50;
+            outline: none;
+          }
+        }
+      }
+
+      .login-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #ffffff;
+        background-color: #4caf50;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #43a047;
+        }
+
+        &:disabled {
+          background-color: #a5d6a7;
+          cursor: not-allowed;
+        }
+      }
+
+      .login-spinner {
+        width: 20px;
+        height: 20px;
+        border: 3px solid #ffffff;
+        border-top: 3px solid #4caf50;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+    }
+  }
+}
+
+/* Add animations and responsiveness */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .loginContainer {
+    padding: 1.5rem;
+
+    .login-title {
+      font-size: 1.25rem;
+    }
+
+    .form-group {
+      label {
+        font-size: 0.8rem;
+      }
+
+      input {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+      }
+    }
+
+    .login-button {
+      font-size: 0.9rem;
+    }
+  }
+}

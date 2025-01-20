@@ -1,0 +1,125 @@
+// Variables
+$primary-color: #4caf50;
+$secondary-color: #ffffff;
+$font-color: #333;
+$footer-bg: #f4f4f4;
+$button-hover-color: #45a049; // Fixed hover color for buttons
+
+// Home page container
+.homePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    h1 {
+      font-size: 2.5rem;
+      color: $primary-color;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1rem;
+      color: $font-color;
+    }
+  }
+
+  .authActions {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+
+    .authBtnLogin,
+    .authBtnSignup {
+      padding: 12px 24px;
+      font-size: 1rem;
+      color: $secondary-color;
+      background-color: $primary-color;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+
+      &:hover {
+        background-color: $button-hover-color; // Fixed hover color for both buttons
+      }
+    }
+
+    .authBtnSignup {
+      background-color: #7ccf7d; // Fixed color for signup button
+    }
+  }
+
+  .courses {
+    width: 80%;
+    margin-bottom: 50px;
+
+    #header {
+      font-size: 2rem;
+      color: $primary-color;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .coursetags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+
+      .tags {
+        padding: 10px 20px;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        color: $font-color;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: $primary-color;
+          color: $secondary-color;
+        }
+      }
+    }
+  }
+
+  .footer {
+    text-align: center;
+    font-size: 0.9rem;
+    background-color: $footer-bg;
+    padding: 10px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+  }
+
+  @media (max-width: 600px) {
+    .header h1 {
+      font-size: 1.8rem;
+    }
+
+    .header p {
+      font-size: 0.9rem;
+    }
+
+    .authActions {
+      width: 90%;
+    }
+
+    .authBtnLogin,
+    .authBtnSignup {
+      width: 100%;
+    }
+
+    .courses {
+      width: 90%;
+    }
+  }
+}
