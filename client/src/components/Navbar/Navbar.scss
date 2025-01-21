@@ -3,7 +3,7 @@ $primary-color: #4caf50;
 $secondary-color: #ffffff;
 $font-color: #333;
 $footer-bg: #f4f4f4;
-$button-hover-color: #45a049;
+$button-hover-color: #1e6622;
 
 .navbar {
   background-color: $primary-color;
@@ -27,10 +27,10 @@ $button-hover-color: #45a049;
         color: $secondary-color;
         text-decoration: none;
         font-size: 1rem;
-        transition: color 0.3s;
+        transition: color 0.5s, box-shadow 0.3s ease-in-out;
 
         &:hover {
-          color: $button-hover-color;
+          box-shadow: 0 2px 0 white;
         }
       }
     }

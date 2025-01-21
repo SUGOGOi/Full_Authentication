@@ -16,6 +16,9 @@ const EmailVerification = () => {
     <div className="email-verification">
       <form className="email-verification__form" onSubmit={handleSubmit}>
         <h1 className="email-verification__title">Email Verification</h1>
+        <p className="email_verification__note">
+          OTP will be valid for 5 minutes only.
+        </p>
 
         <div className="email-verification__field">
           <label htmlFor="email" className="email-verification__label">

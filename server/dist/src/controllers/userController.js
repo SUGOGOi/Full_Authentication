@@ -13,6 +13,7 @@ import { isJwtToken, validateID } from "../utils/checkID&Token.js";
 export const userRegistraion = async (req, res, next) => {
     try {
         const { name, email, password, confirm_password } = req.body;
+        console.log(name, email, password, confirm_password);
         if (!name || !email || !password || !confirm_password) {
             return res
                 .status(400)
@@ -50,7 +51,7 @@ export const userRegistraion = async (req, res, next) => {
         }
         return res.status(201).json({
             success: true,
-            message: `Registration successfull`,
+            message: `Verification link sent to ${email}`,
             user: {
                 _id: newUser._id,
                 email: newUser.email,

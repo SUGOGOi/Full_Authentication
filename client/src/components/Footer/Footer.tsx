@@ -4,7 +4,7 @@ import "./Footer.scss";
 const Footer = () => {
   return (
     <div className="app-footer">
-      <p>&copy; 2025 AuthSystem. All rights reserved.</p>
+      <p>&copy; 2025 Sumsum Gogoi. All rights reserved.</p>
     </div>
   );
 };

@@ -1,6 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import "./register.scss";
+import { toast } from "react-hot-toast";
+import { RegisterPayload, registerUser } from "./register";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const Page: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -8,17 +12,61 @@ const Page: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
-  const hangleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+  const hangleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
-    setTimeout(() => {
+    // Ensure all fields are filled
+    if (!name || !email || !password || !confirmPassword) {
+      toast.error("All fields are required!");
+      return;
+    }
+
+    // Validate passwords match
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match!");
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+
+      const payload: RegisterPayload = {
+        name,
+        email,
+        password,
+        confirm_password: confirmPassword,
+      };
+      const response = await registerUser(payload);
+
+      if (response.success) {
+        toast.success(`${response.message}`);
+        setName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        router.push("/email-verification");
+      } else {
+        console.log(response);
+        toast.error(response.error || "Registration failed.");
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          toast.error(error.response.data.error);
+        } else {
+          toast.error("Server Error!");
+        }
+        console.log(error);
+        setIsLoading(false);
+        setName("");
+        setPassword("");
+        setEmail("");
+        setConfirmPassword("");
+      }
+    } finally {
       setIsLoading(false);
-      setEmail("");
-      setPassword("");
-      setName("");
-      setConfirmPassword("");
-    }, 5000);
+    }
   };
 
   return (

@@ -4,13 +4,12 @@ $secondary-color: #ffffff;
 $font-color: #333;
 $button-hover-color: #45a049; // Fixed hover color for buttons
 
-// Home page container
-.homePage {
+.homeContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: 87vh;
   background-color: #f9f9f9;
 
   .header {
@@ -24,6 +23,16 @@ $button-hover-color: #45a049; // Fixed hover color for buttons
     p {
       font-size: 1rem;
       color: $font-color;
+      margin-bottom: 10px; // Added spacing for additional links
+    }
+
+    a {
+      color: $primary-color;
+      text-decoration: none;
+      font-weight: bold;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -80,6 +89,7 @@ $button-hover-color: #45a049; // Fixed hover color for buttons
   justify-content: center;
   width: 100%;
   height: 100%;
+
   .loadImg {
     width: 60px;
     height: 60px;
