@@ -7,5 +7,11 @@ export const useStore = create<useStoreTypes>()(
     // For theme
     darkMode: true,
     toggleDarkMode: (change) => set(() => ({ darkMode: change })),
+
+    // For User
+    user: {
+      email: "sugogoi69@gmail.com",
+    },
+    setUser: (change) => set(() => ({ user: change })),
   }))
 );

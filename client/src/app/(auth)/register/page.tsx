@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { RegisterPayload, registerUser } from "./register";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useStore } from "@/store/store";
 
 const Page: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -13,6 +14,8 @@ const Page: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
+
+  const { setUser } = useStore();
 
   const hangleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,6 +48,7 @@ const Page: React.FC = () => {
         setEmail("");
         setPassword("");
         setConfirmPassword("");
+        setUser(response.user!);
         router.push("/email-verification");
       } else {
         console.log(response);
