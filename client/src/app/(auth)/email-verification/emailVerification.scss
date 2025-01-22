@@ -81,12 +81,8 @@ $primary-color: #4caf50;
       background-color: #45a049;
     }
 
-    &:disabled {
-      background-color: #a5d6a7;
-      cursor: not-allowed;
-    }
-
-    .email-resending-spinner {
+    .email-resending-spinner,
+    .email-verifying-spinner {
       width: 20px;
       height: 20px;
       border: 3px solid #ffffff;
@@ -95,9 +91,22 @@ $primary-color: #4caf50;
       animation: spin 0.8s linear infinite;
     }
   }
+  &__button {
+    width: 90px;
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
 
   &__resend-button {
     width: 150px;
+    &:disabled {
+      background-color: #a5d6a7;
+      cursor: not-allowed;
+    }
+  }
+  .not-allowed-when-verifying {
+    cursor: not-allowed;
   }
 }
 

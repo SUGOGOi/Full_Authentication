@@ -17,6 +17,12 @@ export interface ResendEmailVerificationOTPResponse {
   error?: string;
 }
 
+export interface EmailVerifying {
+  success: boolean;
+  message?: string;
+  error?: string;
+}
+
 // Email verification otp API call
 export const emailVerificationOtpAPICall = async (
   payload: EmailVerificationPayload

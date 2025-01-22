@@ -9,9 +9,7 @@ export const useStore = create<useStoreTypes>()(
     toggleDarkMode: (change) => set(() => ({ darkMode: change })),
 
     // For User
-    user: {
-      email: "sugogoi69@gmail.com",
-    },
+    user: {},
     setUser: (change) => set(() => ({ user: change })),
   }))
 );

@@ -5,21 +5,58 @@ import { useStore } from "@/store/store";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { ResendEmailVerificationOTPResponse } from "./emailVerification";
+import {
+  EmailVerifying,
+  ResendEmailVerificationOTPResponse,
+} from "./emailVerification";
+import { useRouter } from "next/navigation";
 
 const EmailVerification = () => {
   const [email, setEmail] = useState<string>("");
   const [otp, setOtp] = useState<string>("");
   const [isResending, setIsResending] = useState<boolean>(false);
-  const [timer, setTimer] = useState<number>(120); // Timer in seconds
+  const [isVerifying, setIsVerifying] = useState<boolean>(false);
+  const [timer, setTimer] = useState<number>(20); // Timer in seconds
   const { user } = useStore();
+  const router = useRouter();
+
   console.log(user);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("OTP:", otp);
-    // Add your verification logic here
+    if (!user?.email && !email) {
+      toast.error("Email required!");
+    }
+    try {
+      setIsVerifying(true);
+
+      const response = await axios.put<EmailVerifying>(
+        `http://localhost:4000/api/user/email-verification`,
+        { email: user!.email || email, otp },
+        {
+          withCredentials: true, // Include credentials (cookies, HTTP auth)
+        }
+      );
+
+      if (response.data.success) {
+        toast.success(`${response.data.message}`);
+        router.push("/login");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          toast.error(error.response.data.error);
+        } else {
+          toast.error("Server Error!");
+        }
+      }
+    } finally {
+      setIsVerifying(false);
+      setOtp("");
+      setEmail("");
+    }
   };
 
   const handleResendOtp = async (): Promise<void> => {
@@ -35,7 +72,7 @@ const EmailVerification = () => {
 
       if (response.data.success) {
         toast.success(`${response.data.message}`);
-        setTimer(120);
+        setTimer(20);
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
@@ -109,15 +146,25 @@ const EmailVerification = () => {
           />
         </div>
 
-        <button type="submit" className="email-verification__button">
-          Verify
+        <button
+          type="submit"
+          className="email-verification__button"
+          disabled={isVerifying || isResending}
+        >
+          {isVerifying ? (
+            <div className="email-verifying-spinner"></div>
+          ) : (
+            "Verify"
+          )}
         </button>
 
         {user && user.email ? (
           <>
             <button
               type="button"
-              className="email-verification__resend-button"
+              className={`email-verification__resend-button ${
+                isVerifying ? "not-allowed-when-verifying" : ""
+              }`}
               onClick={handleResendOtp}
               disabled={isResending || timer > 0}
             >
