@@ -574,6 +574,7 @@ export const userLogout = async (
 
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
+    res.clearCookie("is_auth");
 
     return res.status(200).json({
       success: true,

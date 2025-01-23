@@ -9,7 +9,7 @@ const page = () => {
     //   <Navbar />
     <div className={style.homeContainer}>
       <header className={style.header}>
-        <h1>Passport JS + JWT + OAuth 2.0 Authentication</h1>
+        <h1>JWT + OAuth 2.0 Authentication</h1>
         <p>Handle Access Token and Refresh Token on server</p>
         <p>
           Created by Sumsum Gogoi. Check out the source code on GitHub:{" "}

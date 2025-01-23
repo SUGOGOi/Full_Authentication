@@ -36,8 +36,22 @@ export const setTokenCookies = async (
       secure: process.env.NODE_ENV === "production", // Set to true if using HTTPS
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Helps prevent CSRF attacks
     };
-    // set access token
+    // set refresh token
     res.cookie("refreshToken", refreshToken, refreshTokenOptions);
+
+    // is auth area
+    const is_auth_Expiry = new Date(
+      Date.now() +
+        Number(process.env.SET_COOKIE_IS_AUTH_EXPIRY) * 24 * 60 * 60 * 1000 // 5 * 1 day
+    );
+    const is_auth_Options: SetCookieOption = {
+      expires: is_auth_Expiry,
+      httpOnly: false, // Cookie is not accessible via JavaScript
+      secure: process.env.NODE_ENV === "production", // Set to true if using HTTPS
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Helps prevent CSRF attacks
+    };
+    // set is auth token
+    res.cookie("is_auth", true, is_auth_Options);
   } catch (error) {
     console.log(error);
     throw new Error("Failed to set tokens");

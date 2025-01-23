@@ -25,6 +25,6 @@ export interface useStoreTypes {
       | undefined
   ) => void;
 
-  isLogin: boolean;
-  setIsLogin: (change: boolean) => void;
+  isAuth: boolean | undefined;
+  setIsAuth: (change: boolean | undefined) => void;
 }

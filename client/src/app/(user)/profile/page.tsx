@@ -8,10 +8,12 @@ import Loading from "@/app/loading";
 import { GetProfileResponse, LogoutResponse } from "./profile";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 const Page: React.FC = () => {
-  const { isLogin, setIsLogin, user, setUser } = useStore();
+  const { user, setUser, setIsAuth } = useStore();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [loadUser, setLoadUser] = useState<boolean>(true);
   const router = useRouter();
 
   const logoutHandler = async (): Promise<void> => {
@@ -25,6 +27,7 @@ const Page: React.FC = () => {
 
       if (response.data.success) {
         router.push("/");
+        setIsAuth(false);
         toast.success(response.data.message);
       }
     } catch (error: unknown) {
@@ -38,12 +41,13 @@ const Page: React.FC = () => {
       }
     } finally {
       setIsLoading(false);
-      setIsLogin(false);
+      setUser(undefined);
+      setLoadUser(false);
     }
   };
 
   useEffect(() => {
-    if (isLogin === false) {
+    if (user === undefined && loadUser === true) {
       const checkLogin = async (): Promise<void> => {
         try {
           const response = await axios.get<GetProfileResponse>(
@@ -53,8 +57,11 @@ const Page: React.FC = () => {
             }
           );
           if (response.data.success) {
-            setIsLogin(true);
             setUser(response.data.user);
+            const authCookie = Cookies.get("is_auth");
+            if (authCookie === "true") {
+              setIsAuth(true);
+            }
           }
         } catch (error: unknown) {
           if (axios.isAxiosError(error)) {
@@ -70,7 +77,7 @@ const Page: React.FC = () => {
     } else {
       return;
     }
-  }, [setIsLogin, isLogin, setUser]);
+  }, [setUser, loadUser, user, setIsAuth]);
   return (
     <div className="profile-container">
       {user ? (

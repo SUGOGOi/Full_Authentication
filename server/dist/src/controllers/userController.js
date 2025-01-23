@@ -464,6 +464,7 @@ export const userLogout = async (req, res, next) => {
         await UserRefreshToken.findOneAndDelete({ token: refreshToken });
         res.clearCookie("accessToken");
         res.clearCookie("refreshToken");
+        res.clearCookie("is_auth");
         return res.status(200).json({
             success: true,
             message: "Logout successful",

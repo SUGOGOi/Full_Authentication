@@ -4,8 +4,14 @@ import { setTokenCookies } from "../utils/setTokenCookies.js";
 export const accessTokenAutoRefresh = async (req, res, next) => {
     try {
         const { accessToken, refreshToken } = req.cookies;
-        console.log(accessToken, refreshToken);
-        if (accessToken && !isTokenExpired(accessToken)) {
+        let isTokenExpiredResult = isTokenExpired(accessToken);
+        if (accessToken && isTokenExpiredResult) {
+            return res.status(400).json({
+                success: false,
+                error: "Invalid token or token expired",
+            });
+        }
+        if (accessToken && !isTokenExpiredResult) {
             req.headers["authorization"] = `Bearer ${accessToken}`;
         }
         if (!accessToken && !refreshToken) {
