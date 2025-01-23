@@ -1,15 +1,18 @@
 import jwt from "jsonwebtoken";
-export const isTokenExpired = (token: string) => {
+
+export const isTokenExpired = (token: string): boolean => {
   if (!token) {
-    return true;
+    return true; // Token is invalid or missing
   }
 
-  const decodedToken = jwt.decode(token);
+  // Decode the token without verifying
+  const decodedToken = jwt.decode(token) as jwt.JwtPayload | null;
 
-  if (decodedToken && typeof decodedToken !== "string") {
-    const currentTime = Date.now() / 1000;
-    return decodedToken.exp! < currentTime;
-  } else {
-    return true;
+  // Ensure the token is decoded and has the `exp` field
+  if (decodedToken && typeof decodedToken.exp === "number") {
+    const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+    return decodedToken.exp < currentTime; // Check if the token is expired
   }
+
+  return true; // If decoding fails or `exp` is missing, consider the token expired
 };

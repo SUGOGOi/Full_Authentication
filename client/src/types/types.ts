@@ -6,18 +6,24 @@ export interface useStoreTypes {
   //For User
   user:
     | {
-        email: string | undefined | null;
-        _id?: string | undefined | null;
-        name?: string | undefined | null;
-        role?: string | undefined | null;
+        _id: string;
+        name: string;
+        email: string;
+        role: string;
+        is_verified: string;
       }
     | undefined;
-  setUser: (change: {
-    email: string | undefined | null;
-    _id?: string | undefined | null;
-    name?: string | undefined | null;
-    role?: string | undefined | null;
-  }) => void;
+  setUser: (
+    change:
+      | {
+          _id: string;
+          name: string;
+          email: string;
+          role: string;
+          is_verified: string;
+        }
+      | undefined
+  ) => void;
 
   isLogin: boolean;
   setIsLogin: (change: boolean) => void;

@@ -3,15 +3,15 @@ import { refreshAccessToken } from "../utils/refreshAccessToken.js";
 import { setTokenCookies } from "../utils/setTokenCookies.js";
 export const accessTokenAutoRefresh = async (req, res, next) => {
     try {
-        const accessToken = req.cookies.accessToken;
-        if (accessToken || !isTokenExpired(accessToken)) {
+        const { accessToken, refreshToken } = req.cookies;
+        console.log(accessToken, refreshToken);
+        if (accessToken && !isTokenExpired(accessToken)) {
             req.headers["authorization"] = `Bearer ${accessToken}`;
         }
+        if (!accessToken && !refreshToken) {
+            return res.status(500).json({ success: false, error: "Unauthorized" });
+        }
         if (!accessToken) {
-            const refreshToken = req.cookies.refreshToken;
-            if (!refreshToken) {
-                return res.status(500).json({ success: false, error: "Unauthorized" });
-            }
             //get new access token using refresh token
             const { newAccessToken, newRefreshToken, error } = await refreshAccessToken(req, res);
             if (error) {

@@ -212,7 +212,21 @@ export const getNewAccessToken = async (req, res, next) => {
 // profile or logged in user
 export const getUserProfile = async (req, res) => {
     try {
-        return res.json({ success: true, user: req.user });
+        return res.json({
+            success: true,
+            user: {
+                // @ts-ignore
+                _id: req.user._id,
+                // @ts-ignore
+                name: req.user.name,
+                // @ts-ignore
+                email: req.user.email,
+                // @ts-ignore
+                role: req.user.role,
+                // @ts-ignore
+                is_verified: req.user.role,
+            },
+        });
     }
     catch (error) {
         console.log(error);

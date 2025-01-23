@@ -1,23 +1,52 @@
 "use client";
 // import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./profile.scss";
 import { useStore } from "@/store/store";
 import axios from "axios";
 import Loading from "@/app/loading";
+import { GetProfileResponse, LogoutResponse } from "./profile";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const Page: React.FC = () => {
   const { isLogin, setIsLogin, user, setUser } = useStore();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
-  const logoutHandler = () => {
-    console.log("hiii");
+  const logoutHandler = async (): Promise<void> => {
+    try {
+      setIsLoading(true);
+      const response = await axios.post<LogoutResponse>(
+        `http://localhost:4000/api/user/logout`,
+        {},
+        { withCredentials: true }
+      );
+
+      if (response.data.success) {
+        router.push("/");
+        toast.success(response.data.message);
+      }
+    } catch (error: unknown) {
+      console.log(error);
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          toast.error(error.response.data.error);
+        } else {
+          toast.error("Server Error!");
+        }
+      }
+    } finally {
+      setIsLoading(false);
+      setIsLogin(false);
+    }
   };
 
   useEffect(() => {
     if (isLogin === false) {
-      const checkLogin = async () => {
+      const checkLogin = async (): Promise<void> => {
         try {
-          const response = await axios.get(
+          const response = await axios.get<GetProfileResponse>(
             `http://localhost:4000/api/user/get-profile`,
             {
               withCredentials: true,
@@ -27,9 +56,14 @@ const Page: React.FC = () => {
             setIsLogin(true);
             setUser(response.data.user);
           }
-        } catch (error) {
-          console.log(error);
-          setIsLogin(false);
+        } catch (error: unknown) {
+          if (axios.isAxiosError(error)) {
+            if (error.response) {
+              toast.error(error.response.data.error);
+            } else {
+              toast.error("Server Error!");
+            }
+          }
         }
       };
       checkLogin();
@@ -54,8 +88,9 @@ const Page: React.FC = () => {
             onClick={() => {
               logoutHandler();
             }}
+            disabled={isLoading}
           >
-            Logout
+            {isLoading ? <div className="logout-spinner"></div> : "Logout"}
           </button>
         </div>
       ) : (

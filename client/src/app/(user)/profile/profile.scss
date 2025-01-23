@@ -49,6 +49,7 @@
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      width: 100px;
 
       &:hover {
         background-color: #43a047;
@@ -57,7 +58,31 @@
       &:active {
         background-color: #388e3c;
       }
+
+      &:disabled {
+        background-color: #a5d6a7;
+        cursor: not-allowed;
+      }
+
+      .logout-spinner {
+        width: 20px;
+        height: 20px;
+        border: 3px solid #ffffff;
+        border-top: 3px solid #4caf50;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
     }
+  }
+}
+
+/* Add animations and responsiveness */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 
