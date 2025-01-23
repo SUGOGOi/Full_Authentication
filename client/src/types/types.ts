@@ -18,4 +18,7 @@ export interface useStoreTypes {
     name?: string | undefined | null;
     role?: string | undefined | null;
   }) => void;
+
+  isLogin: boolean;
+  setIsLogin: (change: boolean) => void;
 }

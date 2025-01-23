@@ -271,7 +271,7 @@ export const getUserProfile = async (
   res: Response
 ): Promise<any> => {
   try {
-    return res.json({ user: req.user });
+    return res.json({ success: true, user: req.user });
   } catch (error) {
     console.log(error);
     return res

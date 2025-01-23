@@ -9,7 +9,11 @@ export const useStore = create<useStoreTypes>()(
     toggleDarkMode: (change) => set(() => ({ darkMode: change })),
 
     // For User
-    user: {},
+    user: undefined,
     setUser: (change) => set(() => ({ user: change })),
+
+    //For Auth
+    isLogin: false,
+    setIsLogin: (change) => set(() => ({ isLogin: change })),
   }))
 );

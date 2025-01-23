@@ -1,21 +1,53 @@
 "use client";
 import { useState } from "react";
 import "./login.scss";
+import { toast } from "react-hot-toast";
+import axios from "axios";
+import { LoginResponse } from "./login";
+import { useRouter } from "next/navigation";
 
 const Page: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const [email, setEmail] = useState(true);
+  const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
-    setIsLoading(true);
-    setTimeout(() => {
+    if (!email || !password) {
+      toast.error("Email an password are required");
+    }
+
+    try {
+      setIsLoading(true);
+
+      const response = await axios.post<LoginResponse>(
+        `http://localhost:4000/api/user/login`,
+        { email: email, password },
+        {
+          withCredentials: true, // Include credentials (cookies, HTTP auth)
+        }
+      );
+
+      if (response.data.success) {
+        toast.success(`${response.data.message}`);
+        router.push("/profile");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          toast.error(error.response.data.error);
+        } else {
+          toast.error("Server Error!");
+        }
+      }
+    } finally {
       setIsLoading(false);
-      setEmail("");
       setPassword("");
-    }, 5000);
+      setEmail("");
+    }
   };
   return (
     <div className="container">
