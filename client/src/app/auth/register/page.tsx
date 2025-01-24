@@ -49,7 +49,7 @@ const Page: React.FC = () => {
         setPassword("");
         setConfirmPassword("");
         setUser(response.user!);
-        router.push("/email-verification");
+        router.push("/auth/email-verification");
       } else {
         console.log(response);
         toast.error(response.error || "Registration failed.");

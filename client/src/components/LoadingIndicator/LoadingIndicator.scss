@@ -1,0 +1,40 @@
+.loading-indicator-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); // Semi-transparent background
+  z-index: 50;
+}
+
+.loading-indicator-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-indicator-spinner {
+  position: absolute;
+  width: 8rem; // 128px
+  height: 8rem; // 128px
+  border: 4px solid transparent;
+  border-top: 4px solid #6b46c1; // Purple color
+  border-bottom: 4px solid #6b46c1;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+// Spinner animation
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

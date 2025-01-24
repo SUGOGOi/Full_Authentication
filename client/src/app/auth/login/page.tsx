@@ -33,7 +33,7 @@ const Page: React.FC = () => {
 
       if (response.data.success) {
         toast.success(`${response.data.message}`);
-        router.push("/profile");
+        router.push("/user/profile");
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {

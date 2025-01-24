@@ -191,7 +191,7 @@ const EmailVerification = () => {
               <p className="p-resend-otp-text">
                 Didn&apos;t receive OTP?{" "}
                 <Link
-                  href="/resend-email-verification-otp"
+                  href="/auth/resend-email-verification-otp"
                   rel="noopener noreferrer"
                 >
                   Resend OTP

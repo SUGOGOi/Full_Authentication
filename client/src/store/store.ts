@@ -13,7 +13,7 @@ export const useStore = create<useStoreTypes>()(
     setUser: (change) => set(() => ({ user: change })),
 
     //For Auth
-    isAuth: false,
+    isAuth: null,
     setIsAuth: (change) => set(() => ({ isAuth: change })),
   }))
 );

@@ -35,7 +35,7 @@ const ResendEmailVerificationOTP: React.FC = () => {
       if (response.data.success) {
         toast.success(`${response.data.message}`);
         setUser({ email });
-        router.push("/email-verification");
+        router.push("/auth/email-verification");
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
