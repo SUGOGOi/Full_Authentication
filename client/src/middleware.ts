@@ -10,6 +10,8 @@ const authPaths = [
   "/auth/reset-password",
 ];
 
+const uerPaths = ["/user/profile", "/user/change-password"];
+
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
   try {
@@ -22,7 +24,7 @@ export async function middleware(request: NextRequest) {
       }
     }
 
-    if (!isAuthenticated && !authPaths.includes(path)) {
+    if (!isAuthenticated && uerPaths.includes(path)) {
       return NextResponse.redirect(new URL("/auth/login", request.url));
     }
 

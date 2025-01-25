@@ -82,6 +82,27 @@
         border-radius: 50%;
         animation: spin 0.8s linear infinite;
       }
+
+      .register-footer {
+        text-align: center;
+        font-size: 0.9rem;
+        margin-top: 1rem;
+
+        p {
+          margin: 0;
+          color: #666666;
+
+          .register-login-link {
+            color: #4caf50;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            &:hover {
+              color: #43a047;
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -114,6 +135,10 @@
 
     .register-button {
       font-size: 0.9rem;
+    }
+
+    .register-footer {
+      font-size: 0.8rem;
     }
   }
 }

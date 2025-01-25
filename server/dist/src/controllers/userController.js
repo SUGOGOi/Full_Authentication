@@ -280,20 +280,20 @@ export const sendResetPasswordLink = async (req, res, next) => {
         if (!email) {
             return res.status(400).json({
                 success: false,
-                message: "Email is required",
+                error: "Email is required",
             });
         }
         const userFound = await User.findOne({ email: email });
         if (!userFound) {
             return res.status(400).json({
                 success: false,
-                message: "Email doesn't exist",
+                error: "Email doesn't exist",
             });
         }
         //generate token for password reset
         const resetPasswordToken = jwt.sign({ _id: userFound._id }, process.env.ACCESS_TOKEN_SECRET_KEY, { expiresIn: process.env.ACCESS_TOKEN_EXPIRY });
         //reset link
-        const resetPasswordLink = `${process.env.FRONTEND_URL}/account/reset-password/${userFound._id}/${resetPasswordToken}`;
+        const resetPasswordLink = `${process.env.FRONTEND_URL}/auth/reset-password/${userFound._id}/${resetPasswordToken}`;
         await transporter.sendMail({
             from: process.env.EMAIL_FROM,
             to: userFound.email,

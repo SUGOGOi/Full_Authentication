@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { LoginResponse } from "./login";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Page: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -52,11 +53,7 @@ const Page: React.FC = () => {
   return (
     <div className="container">
       <div className="loginContainer">
-        <form
-          // className={`login-form ${darkMode ? "dark" : ""}`}
-          className={`login-form `}
-          onSubmit={handleLogin}
-        >
+        <form className="login-form" onSubmit={handleLogin}>
           <h2 className="login-title">Login</h2>
           <div className="form-group">
             <label htmlFor="email">Email</label>
@@ -78,9 +75,23 @@ const Page: React.FC = () => {
               required
             />
           </div>
+          <Link
+            href="/auth/forgot-password"
+            className="login-link forgot-password"
+          >
+            Forgot Password?
+          </Link>
           <button type="submit" className="login-button" disabled={isLoading}>
             {isLoading ? <div className="login-spinner"></div> : "Login"}
           </button>
+          <div className="login-footer">
+            <p>
+              Don&apos;t have an account?{" "}
+              <Link href="/auth/register" className="login-link">
+                Create New Account
+              </Link>
+            </p>
+          </div>
         </form>
       </div>
     </div>

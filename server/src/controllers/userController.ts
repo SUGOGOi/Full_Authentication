@@ -356,7 +356,7 @@ export const sendResetPasswordLink = async (
     if (!email) {
       return res.status(400).json({
         success: false,
-        message: "Email is required",
+        error: "Email is required",
       });
     }
 
@@ -365,7 +365,7 @@ export const sendResetPasswordLink = async (
     if (!userFound) {
       return res.status(400).json({
         success: false,
-        message: "Email doesn't exist",
+        error: "Email doesn't exist",
       });
     }
 
@@ -377,7 +377,7 @@ export const sendResetPasswordLink = async (
     );
 
     //reset link
-    const resetPasswordLink = `${process.env.FRONTEND_URL}/account/reset-password/${userFound._id}/${resetPasswordToken}`;
+    const resetPasswordLink = `${process.env.FRONTEND_URL}/auth/reset-password/${userFound._id}/${resetPasswordToken}`;
 
     await transporter.sendMail({
       from: process.env.EMAIL_FROM,

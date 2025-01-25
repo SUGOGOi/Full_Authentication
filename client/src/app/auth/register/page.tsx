@@ -6,6 +6,7 @@ import { RegisterPayload, registerUser } from "./register";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/store/store";
+import Link from "next/link";
 
 const Page: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -109,7 +110,7 @@ const Page: React.FC = () => {
             />
           </div>
           <div className="register-form-group">
-            <label htmlFor="password">Confirm Password</label>
+            <label htmlFor="confirm_password">Confirm Password</label>
             <input
               type="password"
               id="confirm_password"
@@ -125,6 +126,14 @@ const Page: React.FC = () => {
           >
             {isLoading ? <div className="register-spinner"></div> : "Submit"}
           </button>
+          <div className="register-footer">
+            <p>
+              Already have an account?{" "}
+              <Link href="/auth/login" className="register-login-link">
+                Log In
+              </Link>
+            </p>
+          </div>
         </form>
       </div>
     </div>
