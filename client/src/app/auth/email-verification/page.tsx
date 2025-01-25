@@ -28,6 +28,7 @@ const EmailVerification = () => {
     e.preventDefault();
     if (!user?.email && !email) {
       toast.error("Email required!");
+      return;
     }
     try {
       setIsVerifying(true);

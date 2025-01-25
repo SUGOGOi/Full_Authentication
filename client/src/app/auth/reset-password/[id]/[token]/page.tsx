@@ -25,6 +25,7 @@ const ResetPassword: React.FC = () => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
       toast.error("Passwords do not match");
+      return;
     }
 
     try {
@@ -94,11 +95,7 @@ const ResetPassword: React.FC = () => {
           className="reset-password__button"
           disabled={isLoading}
         >
-          {isLoading ? (
-            <div className="reset-password-spinner"></div>
-          ) : (
-            "Reset password"
-          )}
+          {isLoading ? <div className="reset-password-spinner"></div> : "Reset"}
         </button>
       </form>
     </div>

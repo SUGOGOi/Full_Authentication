@@ -7,7 +7,7 @@ const authPaths = [
   "/auth/login",
   "/auth/register",
   "/auth/resend-email-verification-otp",
-  "/auth/reset-password",
+  "/auth/reset-password/*",
 ];
 
 const uerPaths = ["/user/profile", "/user/change-password"];

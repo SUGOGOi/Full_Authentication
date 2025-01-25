@@ -23,6 +23,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     if (!email) {
       toast.error("Email is required");
+      return;
     }
 
     try {

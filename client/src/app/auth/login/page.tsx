@@ -19,6 +19,7 @@ const Page: React.FC = () => {
     e.preventDefault();
     if (!email || !password) {
       toast.error("Email an password are required");
+      return;
     }
 
     try {
