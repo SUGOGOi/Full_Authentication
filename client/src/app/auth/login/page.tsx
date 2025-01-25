@@ -12,7 +12,6 @@ const Page: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
-  console.log(`hii ${process.env.NEXT_PUBLIC_BACKEND_URL}`);
 
   const handleGoogleLogin = async (): Promise<void> => {
     window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`, "_self");
