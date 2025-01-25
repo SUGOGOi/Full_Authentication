@@ -16,6 +16,7 @@ const uerPaths = ["/user/profile", "/user/change-password"];
 export async function middleware(request: NextRequest) {
   try {
     const path = request.nextUrl.pathname;
+    console.log(path);
     const isAuthenticated = request.cookies.get("is_auth")?.value;
 
     if (isAuthenticated) {
