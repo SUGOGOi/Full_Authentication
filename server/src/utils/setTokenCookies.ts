@@ -1,5 +1,8 @@
 import { Response } from "express";
 import { SetCookieOption } from "../Types/types.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const setTokenCookies = async (
   res: Response,
