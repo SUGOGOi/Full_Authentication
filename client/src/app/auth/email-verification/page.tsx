@@ -43,7 +43,7 @@ const EmailVerification = () => {
 
       if (response.data.success) {
         toast.success(`${response.data.message}`);
-        router.push("/login");
+        router.push("/auth/login");
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
