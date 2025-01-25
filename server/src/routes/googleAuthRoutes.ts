@@ -26,7 +26,7 @@ router.get(
     if (!req.user) {
       return res.status(400).json({ error: "Authentication failed." });
     }
-    const { userFound, statusCode, accessToken, refreshToken } = req.user as {
+    const { userFound, accessToken, refreshToken } = req.user as {
       userFound: any;
       accessToken: string;
       refreshToken: string;

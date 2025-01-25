@@ -21,9 +21,9 @@ export interface RegisterResponse {
 export const registerUser = async (
   payload: RegisterPayload
 ): Promise<RegisterResponse> => {
-  //   console.log(process.env.BACKEND_URL);
+  //   console.log(process.env.NEXT_PUBLIC_BACKEND_URL);
   const response = await axios.post<RegisterResponse>(
-    `http://localhost:4000/api/user/register`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/register`,
     payload,
     {
       withCredentials: true, // Include credentials (cookies, HTTP auth)

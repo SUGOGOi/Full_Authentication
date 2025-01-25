@@ -30,7 +30,7 @@ const ForgotPassword = () => {
       setIsLoading(true);
 
       const response = await axios.post<ForgotPasswordResponse>(
-        `http://localhost:4000/api/user/reset-password-link`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/reset-password-link`,
         { email },
         {
           withCredentials: true, // Include credentials (cookies, HTTP auth)

@@ -20,7 +20,7 @@ const Page: React.FC = () => {
     try {
       setIsLoading(true);
       const response = await axios.post<LogoutResponse>(
-        `http://localhost:4000/api/user/logout`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/logout`,
         {},
         { withCredentials: true }
       );
@@ -51,7 +51,7 @@ const Page: React.FC = () => {
       const checkLogin = async (): Promise<void> => {
         try {
           const response = await axios.get<GetProfileResponse>(
-            `http://localhost:4000/api/user/get-profile`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/get-profile`,
             {
               withCredentials: true,
             }

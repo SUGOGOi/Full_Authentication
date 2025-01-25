@@ -2,7 +2,7 @@
 /client/.next
 /server/node_modules
 /.vscode
-/client/.env
+/client/.env.local
 /server/.env
 
 

@@ -18,7 +18,6 @@ passport.use(
       //   console.log(profile);
       try {
         let userFound = await User.findOne({ email: profile._json.email });
-        let statusCode = 200;
         if (!userFound) {
           //generate unique password
           const last6DigitsID = profile.id.substring(profile.id.length - 6);
@@ -38,7 +37,6 @@ passport.use(
             password: hashedPassword,
             is_verified: true,
           });
-          statusCode = 201;
         }
 
         //generate JWT token
@@ -47,7 +45,7 @@ passport.use(
           role: userFound.role!,
         });
 
-        return done(null, { statusCode, userFound, accessToken, refreshToken });
+        return done(null, { userFound, accessToken, refreshToken });
       } catch (error) {
         return done(error, false);
       }

@@ -16,7 +16,7 @@ router.get("/auth/google/callback", passport.authenticate("google", {
     if (!req.user) {
         return res.status(400).json({ error: "Authentication failed." });
     }
-    const { userFound, statusCode, accessToken, refreshToken } = req.user;
+    const { userFound, accessToken, refreshToken } = req.user;
     // //set cookie
     setTokenCookies(res, accessToken, refreshToken);
     return res.redirect(`${process.env.FRONTEND_URL}/user/profile`);

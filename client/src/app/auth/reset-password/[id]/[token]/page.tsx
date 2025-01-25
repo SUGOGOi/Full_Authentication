@@ -32,7 +32,7 @@ const ResetPassword: React.FC = () => {
       setIsLoading(true);
 
       const response = await axios.post<ResetPasswordResponse>(
-        `http://localhost:4000/api/user/reset-password/${params.id}/${params.token}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/reset-password/${params.id}/${params.token}`,
         { newPassword, newConfirmPassword: confirmPassword },
         {
           withCredentials: true, // Include credentials (cookies, HTTP auth)

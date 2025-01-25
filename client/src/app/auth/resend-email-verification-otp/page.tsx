@@ -25,7 +25,7 @@ const ResendEmailVerificationOTP: React.FC = () => {
     try {
       setIsSending(true);
       const response = await axios.put<ResendEmailVerificationOTPResponse>(
-        `http://localhost:4000/api/user/resend-registration-otp`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/resend-registration-otp`,
         { email },
         {
           withCredentials: true, // Include credentials (cookies, HTTP auth)

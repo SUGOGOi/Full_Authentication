@@ -18,7 +18,7 @@ const Page: React.FC = () => {
   const { setUser } = useStore();
 
   const handleGoogleRegister = async (): Promise<void> => {
-    window.open(`http://localhost:4000/auth/google`, "_self");
+    window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`, "_self");
   };
 
   const hangleRegister = async (e: React.FormEvent<HTMLFormElement>) => {

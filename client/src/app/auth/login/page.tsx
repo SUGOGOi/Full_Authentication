@@ -12,9 +12,10 @@ const Page: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
+  console.log(`hii ${process.env.NEXT_PUBLIC_BACKEND_URL}`);
 
   const handleGoogleLogin = async (): Promise<void> => {
-    window.open(`http://localhost:4000/auth/google`, "_self");
+    window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`, "_self");
   };
 
   const handleLogin = async (
@@ -30,7 +31,7 @@ const Page: React.FC = () => {
       setIsLoading(true);
 
       const response = await axios.post<LoginResponse>(
-        `http://localhost:4000/api/user/login`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/login`,
         { email: email, password },
         {
           withCredentials: true, // Include credentials (cookies, HTTP auth)

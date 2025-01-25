@@ -34,7 +34,7 @@ const EmailVerification = () => {
       setIsVerifying(true);
 
       const response = await axios.put<EmailVerifying>(
-        `http://localhost:4000/api/user/email-verification`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/email-verification`,
         { email: user!.email || email, otp },
         {
           withCredentials: true, // Include credentials (cookies, HTTP auth)
@@ -64,7 +64,7 @@ const EmailVerification = () => {
     try {
       setIsResending(true);
       const response = await axios.put<ResendEmailVerificationOTPResponse>(
-        `http://localhost:4000/api/user/resend-registration-otp`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/resend-registration-otp`,
         { email: user!.email },
         {
           withCredentials: true, // Include credentials (cookies, HTTP auth)

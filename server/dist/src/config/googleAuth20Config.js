@@ -13,7 +13,6 @@ passport.use(new GoogleStrategy({
     //   console.log(profile);
     try {
         let userFound = await User.findOne({ email: profile._json.email });
-        let statusCode = 200;
         if (!userFound) {
             //generate unique password
             const last6DigitsID = profile.id.substring(profile.id.length - 6);
@@ -28,14 +27,13 @@ passport.use(new GoogleStrategy({
                 password: hashedPassword,
                 is_verified: true,
             });
-            statusCode = 201;
         }
         //generate JWT token
         const { accessToken, refreshToken } = await generateTokens({
             _id: userFound._id,
             role: userFound.role,
         });
-        return done(null, { statusCode, userFound, accessToken, refreshToken });
+        return done(null, { userFound, accessToken, refreshToken });
     }
     catch (error) {
         return done(error, false);

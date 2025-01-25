@@ -28,7 +28,7 @@ const ChangePassword = () => {
       setIsLoading(true);
 
       const response = await axios.post<ChangePasswordResponse>(
-        `http://localhost:4000/api/user/change-password`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/change-password`,
         { password: newPassword, confirm_password: confirmNewPassword },
         {
           withCredentials: true, // Include credentials (cookies, HTTP auth)
