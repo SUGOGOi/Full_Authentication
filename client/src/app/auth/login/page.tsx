@@ -14,6 +14,7 @@ const Page: React.FC = () => {
   const router = useRouter();
 
   const handleGoogleLogin = async (): Promise<void> => {
+    console.log(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`);
     window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`, "_self");
   };
 
