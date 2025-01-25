@@ -27,4 +27,8 @@ export interface useStoreTypes {
 
   isAuth: boolean | null;
   setIsAuth: (change: boolean | null) => void;
+
+  // for render.com
+  checkApi: boolean;
+  setCheckApi: (change: boolean) => void;
 }

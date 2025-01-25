@@ -37,4 +37,11 @@ import userRoutes from "./src/routes/userRoute.js";
 import googleAuthRoutes from "./src/routes/googleAuthRoutes.js";
 app.use("/api/user", userRoutes);
 app.use("", googleAuthRoutes);
+//initial test route
+app.get("/", async (req, res) => {
+    return res.json({
+        success: true,
+        message: `Api working`,
+    });
+});
 export default app;

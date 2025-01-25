@@ -15,5 +15,9 @@ export const useStore = create<useStoreTypes>()(
     //For Auth
     isAuth: null,
     setIsAuth: (change) => set(() => ({ isAuth: change })),
+
+    //for render.com
+    checkApi: false,
+    setCheckApi: (change) => set(() => ({ checkApi: change })),
   }))
 );

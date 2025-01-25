@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request } from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -7,6 +7,7 @@ import helmet from "helmet";
 import "./src/config/passportConfig.js";
 import "./src/config/googleAuth20Config.js";
 import transporter from "./src/config/emailConfig.js";
+import { Response } from "express";
 
 dotenv.config();
 
@@ -46,5 +47,13 @@ import googleAuthRoutes from "./src/routes/googleAuthRoutes.js";
 
 app.use("/api/user", userRoutes);
 app.use("", googleAuthRoutes);
+
+//initial test route
+app.get("/", async (req: Request, res: Response): Promise<any> => {
+  return res.json({
+    success: true,
+    message: `Api working`,
+  });
+});
 
 export default app;

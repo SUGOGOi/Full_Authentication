@@ -4,10 +4,11 @@ import "./Navbar.scss";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { useStore } from "@/store/store";
+import axios from "axios";
 // import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 
 const Navbar: React.FC = () => {
-  const { isAuth, setIsAuth } = useStore();
+  const { isAuth, setIsAuth, setCheckApi } = useStore();
 
   useEffect(() => {
     const authCookie = Cookies.get("is_auth");
@@ -15,6 +16,23 @@ const Navbar: React.FC = () => {
       setIsAuth(true);
     }
   }, [setIsAuth]);
+
+  useEffect(() => {
+    const checkApiFun = async () => {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (response.data.success) {
+        setCheckApi(true);
+      }
+    };
+
+    checkApiFun();
+  }, [setCheckApi]);
   return (
     <>
       {/* {isAuth === null && <LoadingIndicator />} */}
