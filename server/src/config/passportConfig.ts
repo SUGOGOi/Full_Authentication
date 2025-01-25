@@ -1,6 +1,5 @@
 import passport from "passport";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
-// import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { User } from "../models/userModel.js";
 import dotenv from "dotenv";
 
@@ -28,10 +27,3 @@ passport.use(
     }
   )
 );
-
-//Google Oauth Strategy
-// passport.use(
-//     new GoogleStrategy({
-
-//     })
-// )
